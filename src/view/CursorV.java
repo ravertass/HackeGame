@@ -4,9 +4,7 @@ import model.CursorM;
 
 import org.lwjgl.input.Mouse;
 
-public class CursorV extends AbstractGameThing {
-
-	private CursorM model;
+public class CursorV extends AbstractThingView {
 	
 	public CursorV(int x, int y, int width, int height, CursorM model) {
 		super(x, y, width, height);

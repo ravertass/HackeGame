@@ -2,14 +2,17 @@ package view;
 
 import static org.lwjgl.opengl.GL11.*;
 
+import model.ThingModelInterface;
+
 import org.newdawn.slick.opengl.Texture;
 
-public abstract class AbstractGameThing implements GameThingInterface {
+public abstract class AbstractThingView implements ThingViewInterface {
 	
 	protected int x, y, width, height;
 	protected Texture texture;
+	protected ThingModelInterface model;
 	
-	public AbstractGameThing(int x, int y, int width, int height) {
+	public AbstractThingView(int x, int y, int width, int height) {
 		this.x = x;
 		this.y = y;
 		this.width = width;

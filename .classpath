@@ -3,13 +3,13 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="res"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
-	<classpathentry kind="lib" path="/home/bergman/HackeGame/lib/jars/jdom-2.0.5.jar"/>
-	<classpathentry kind="lib" path="/home/bergman/HackeGame/lib/jars/lwjgl.jar">
+	<classpathentry kind="lib" path="E:/Program/eclipse/jdom/jdom-2.0.5.jar"/>
+	<classpathentry kind="lib" path="E:/Program/eclipse/lwjgl+slick/lwjgl.jar">
 		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="/home/bergman/HackeGame/lib/natives-linux"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="E:/Program/eclipse/lwjgl+slick"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/bergman/HackeGame/lib/jars/lwjgl_util.jar"/>
-	<classpathentry kind="lib" path="/home/bergman/HackeGame/lib/jars/slick-util.jar"/>
+	<classpathentry kind="lib" path="E:/Program/eclipse/lwjgl+slick/lwjgl_util.jar"/>
+	<classpathentry kind="lib" path="E:/Program/eclipse/lwjgl+slick/slick-util.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

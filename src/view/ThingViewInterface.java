@@ -1,6 +1,6 @@
 package view;
 
-public interface GameThingInterface {
+public interface ThingViewInterface {
 
 	public void setX(int x);
 	public int getX();
