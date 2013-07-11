@@ -1,7 +1,7 @@
 package model;
 
 /**
- * @author Fabian Sörensson & Anton Bergman
+ * @author Fabian Sï¿½rensson & Anton Bergman
  *
  * This is the model class.
  * The code follows the Model-View-Controller design pattern.

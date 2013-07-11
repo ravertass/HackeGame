@@ -17,7 +17,7 @@ public class View {
 		setupDisplay();
 		setupOpenGL();
 		background = ImageLoader.loadTexture("background");
-		cursor = new CursorV(50, 50, 32, 32, model.cursor);
+		cursor = new CursorV(50, 50, 32, 32, model.cursor); //50, 50 is starting point for mouse TODO
 	}
 	
 	/**

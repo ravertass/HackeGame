@@ -7,9 +7,8 @@ import org.lwjgl.input.Mouse;
 public class CursorV extends AbstractThingView {
 	
 	public CursorV(int x, int y, int width, int height, CursorM model) {
-		super(x, y, width, height);
+		super(x, y, width, height, "cursor_0");
 		this.model = model;
-		setImage("cursor_0");
 		Mouse.setGrabbed(true);
 	}
 	

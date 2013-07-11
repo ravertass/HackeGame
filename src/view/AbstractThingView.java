@@ -12,13 +12,12 @@ public abstract class AbstractThingView implements ThingViewInterface {
 	protected Texture texture;
 	protected ThingModelInterface model;
 	
-	public AbstractThingView(int x, int y, int width, int height) {
+	public AbstractThingView(int x, int y, int width, int height, String imageName) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		texture = null; //kanske måste fixa detta och se till att texture 
-						//som standard är en tom bild
+		setImage(imageName);
 	}
 	
 	public int getX() {
