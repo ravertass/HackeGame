@@ -12,6 +12,8 @@ public class View {
 	
 	private CursorV cursor;
 	private Texture background;
+	private int mouseX, mouseY;
+	private boolean leftClick, rightClick;
 
 	public View(Model model) {
 		setupDisplay();
@@ -29,6 +31,20 @@ public class View {
 		// clear the window
 		glClear(GL_COLOR_BUFFER_BIT);
 		// draw a background
+		drawBackground();
+		// draw all game objects
+		cursor.draw();
+		// update and sync display
+		Display.update();
+		Display.sync(60);
+		
+		// reset mouse clicks
+		leftClick = false;
+		rightClick = false;
+	}
+
+	// this method will be a lot more generic when there are more rooms
+	private void drawBackground() {
 		background.bind();
 		glBegin(GL_QUADS);
 			glTexCoord2f(0, 480f/512f);
@@ -40,11 +56,6 @@ public class View {
 			glTexCoord2f(0, 0);
 			glVertex2i(0, 480);
 		glEnd();
-		// draw all game objects
-		cursor.draw();
-		// update and sync display
-		Display.update();
-		Display.sync(60);
 	}
 
 	/**
@@ -77,5 +88,21 @@ public class View {
 			System.exit(1);
 		}
 		
+	}
+
+	public void setMouseX(int x) {
+		mouseX = x;
+	}
+
+	public void setMouseY(int y) {
+		mouseY = y;
+	}
+	
+	public void leftClick() {
+		leftClick = true;
+	}
+	
+	public void rightClick() {
+		rightClick = true;
 	}
 }

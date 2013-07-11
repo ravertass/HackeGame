@@ -1,6 +1,7 @@
 package controller;
 
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 
 import view.View;
@@ -60,11 +61,29 @@ public class Controller {
 	 * view/model
 	 */
 	private void input() {
-		// Jag tror att musens position borde läsas in här på något vis
-		// och sedan skickas till modellen...
+		// 
+		model.setMouseX(Mouse.getX());
+		model.setMouseY(Mouse.getY());
+		
+		// This could very well turn out to be unnecessary.
+		// We are right now confused about if the view or the model should take
+		// the input information...
+		view.setMouseX(Mouse.getX());
+		view.setMouseY(Mouse.getY());
 		if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE) || 
 				Display.isCloseRequested()) {
 			isRunning = false;
+		}
+		
+		if (Mouse.isButtonDown(0)) {
+			model.leftClick();
+			// This, too, could be unnecessary/wrong
+			view.leftClick();
+		}
+		if (Mouse.isButtonDown(1)) {
+			model.rightClick();
+			// This, too, could be unnecessary/wrong
+			view.rightClick();
 		}
 	}
 	
