@@ -32,8 +32,8 @@ public class Controller {
 	}
 	
 	public Controller() {
-		view = new View();
 		model = new Model();
+		view = new View(model);
 		
 		isRunning = true;
 		

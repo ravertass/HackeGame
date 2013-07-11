@@ -1,5 +1,7 @@
 package view;
 
+import model.Model;
+
 import org.lwjgl.*;
 import org.lwjgl.opengl.*;
 import org.newdawn.slick.opengl.Texture;
@@ -8,14 +10,14 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class View {
 	
-	private Cursor cursor;
+	private CursorV cursor;
 	private Texture background;
 
-	public View() {
+	public View(Model model) {
 		setupDisplay();
 		setupOpenGL();
 		background = ImageLoader.loadTexture("background");
-		cursor = new Cursor(50, 50, 32, 32);
+		cursor = new CursorV(50, 50, 32, 32, model.cursor);
 	}
 	
 	/**

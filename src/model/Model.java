@@ -2,13 +2,13 @@ package model;
 
 public class Model {
 
+	public CursorM cursor;
+	
 	public Model() {
-		// lol
-		//banananana
+		cursor = new CursorM();
 	}
 	
 	public void update() {
-		// lol
-		//lololol
+		cursor.update();
 	}
 }
