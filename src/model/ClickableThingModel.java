@@ -1,33 +1,26 @@
 package model;
 
-<<<<<<< HEAD
-public abstract class ClickableThingModel extends AbstractThingModel{
+public class ClickableThingModel extends AbstractThingModel {
 	
+	private ThingState state;
 	
-	public void clicked(){
-		
-=======
-public abstract class ClickableThingModel extends AbstractThingModel {
-	
-	private State state;
-	
-	private enum State {
-		SLEEPING,
-		AWAKE
+	public ClickableThingModel(int x, int y, int width, int height) {
+		super(x, y, width, height);
+		state = ThingState.SNORLAX_SLEEPING;
 	}
-	
-	public ClickableThingModel() {
-		state = State.SLEEPING;
+
+	@Override
+	public void update() {
+		// Do nothing
 	}
-	
+
 	public void clicked() {
-		if (state == State.SLEEPING) {
-			state = State.AWAKE;
+		if (state == ThingState.SNORLAX_SLEEPING) {
+			state = ThingState.SNORLAX_AWAKE;
 		}
 	}
 	
-	public State getState() {
+	public ThingState getState() {
 		return state;
->>>>>>> fe679c2f1ba59becc8f7490d017b2a68321b71cf
 	}
 }

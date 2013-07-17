@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 /**
  * @author Fabian Sörensson & Anton Bergman
  *
@@ -11,11 +13,21 @@ package model;
 public class Model {
 
 	public CursorM cursor;
+	public ArrayList<ClickableThingModel> thingsInRoom;
+	public PlayerModel player;
 	private int mouseX, mouseY;
 	private boolean leftClick, rightClick;
 	
 	public Model() {
+		thingsInRoom = new ArrayList<ClickableThingModel>();
 		cursor = new CursorM();
+		mouseX = 50;
+		mouseY = 50;
+		leftClick = false;
+		rightClick = false;
+		ClickableThingModel snorlax = new ClickableThingModel(128, 128, 64, 64);
+		player = new PlayerModel(256, 96, mouseX, mouseX);
+		thingsInRoom.add(snorlax);
 	}
 	
 	/**
@@ -23,6 +35,19 @@ public class Model {
 	 */
 	public void update() {
 		cursor.update(mouseX, mouseY);
+		cursor.changeState(ThingState.MOUSE_DEFAULT);
+		
+		for (ClickableThingModel thing : thingsInRoom) {
+			if (mouseX > thing.getX() && mouseX < (thing.getX() + thing.getWidth())
+					&& mouseY < thing.getY() && mouseY > (thing.getY() - thing.getHeight())) {
+				cursor.changeState(ThingState.MOUSE_INTERACT);
+				if (leftClick) {
+					thing.clicked();
+				}
+			}
+		}
+		
+		player.update(mouseX, mouseY, rightClick);
 		/**if leftClick:
 			for grejer in arraylist:
 				if man har klickat p� grejen:

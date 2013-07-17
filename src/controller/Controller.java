@@ -9,7 +9,7 @@ import model.Model;
 
 /**
  * 
- * @author Fabian Sörensson & Anton Bergman
+ * @author Fabian Sï¿½rensson & Anton Bergman
  *
  * This is the controller class.
  * The code follows the Model-View-Controller design pattern.

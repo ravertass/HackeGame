@@ -1,12 +1,13 @@
 package model;
 
 /**
- * @author Fabian Sörensson & Anton Bergman
+ * @author Fabian Sï¿½rensson & Anton Bergman
  * This class handles the logic for the game cursor.
  */
 public class CursorM extends AbstractThingModel {
 	
 	public CursorM() {
+		super(50, 50, 32, 32);
 		// lol
 	}
 
@@ -20,9 +21,9 @@ public class CursorM extends AbstractThingModel {
 	public void update() {
 		// TODO Auto-generated method stub
 		// olololol
-		// Det här måste vara här just nu, då cursor implementerar ett
-		// interface som kräver den här metoden... Jag tänkte inte på det 
-		// när jag ovan la till x och y som parameterar till update. Vi får
-		// fundera på hur detta ska göras...
+		// Det hï¿½r mï¿½ste vara hï¿½r just nu, dï¿½ cursor implementerar ett
+		// interface som krï¿½ver den hï¿½r metoden... Jag tï¿½nkte inte pï¿½ det 
+		// nï¿½r jag ovan la till x och y som parameterar till update. Vi fï¿½r
+		// fundera pï¿½ hur detta ska gï¿½ras...
 	}
 }
