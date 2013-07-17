@@ -1,7 +1,7 @@
 package model;
 
 /**
- * @author Fabian Sï¿½rensson & Anton Bergman
+ * @author Fabian SÃ¶rensson & Anton Bergman
  *
  * This is the model class.
  * The code follows the Model-View-Controller design pattern.
@@ -25,7 +25,7 @@ public class Model {
 		cursor.update(mouseX, mouseY);
 		/**if leftClick:
 			for grejer in arraylist:
-				if man har klickat på grejen:
+				if man har klickat pï¿½ grejen:
 					grej.clicked();**/
 		// reset mouse clicks
 		leftClick = false;
