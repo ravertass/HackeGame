@@ -1,7 +1,6 @@
 package view;
 
 import model.AbstractThingModel;
-import model.ThingState;
 
 public class PlayerView extends AbstractThingView {
 
@@ -11,8 +10,6 @@ public class PlayerView extends AbstractThingView {
 	}
 	
 	public void draw() {
-		System.out.println("X: " + x);
-		System.out.println("Y: " + y);
 		x = model.getX();
 		y = model.getY();
 		super.draw();

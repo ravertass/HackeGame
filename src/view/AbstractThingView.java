@@ -3,7 +3,6 @@ package view;
 import static org.lwjgl.opengl.GL11.*;
 
 import model.AbstractThingModel;
-import model.ThingModelInterface;
 
 import org.newdawn.slick.opengl.Texture;
 

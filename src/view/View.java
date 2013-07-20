@@ -13,8 +13,8 @@ public class View {
 	private CursorV cursor;
 	private Texture background;
 	private PlayerView player;
-	private int mouseX, mouseY;
-	private boolean leftClick, rightClick;
+	/**private int mouseX, mouseY;
+	private boolean leftClick, rightClick;**/
 	private ClickableThingView snorlax;
 
 	public View(Model model) {
@@ -45,9 +45,9 @@ public class View {
 		Display.update();
 		Display.sync(60);
 		
-		// reset mouse clicks
+		/** reset mouse clicks
 		leftClick = false;
-		rightClick = false;
+		rightClick = false;**/
 	}
 
 	// this method will be a lot more generic when there are more rooms
@@ -97,7 +97,7 @@ public class View {
 		
 	}
 
-	public void setMouseX(int x) {
+	/**public void setMouseX(int x) {
 		mouseX = x;
 	}
 
@@ -111,5 +111,5 @@ public class View {
 	
 	public void rightClick() {
 		rightClick = true;
-	}
+	}**/
 }

@@ -48,8 +48,8 @@ public class PlayerModel extends AbstractThingModel implements ThingModelInterfa
 			double walkingProp = walkingSpeed / 
 					Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2));
 			
-			int dX = Math.round(walkingSpeed * distanceX);
-			int dY = Math.round(walkingSpeed * distanceY);
+			long dX = Math.round(walkingProp * distanceX);
+			long dY = Math.round(walkingProp * distanceY);
 			
 			x += dX;
 			y += dY;
