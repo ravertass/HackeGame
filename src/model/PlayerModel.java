@@ -6,6 +6,7 @@ public class PlayerModel extends AbstractThingModel implements ThingModelInterfa
 	private int destinationX;
 	private int destinationY;
 	private boolean walking; 
+	private ClickableThingInterface targetThing;
 	
 	public PlayerModel(int x, int y, int width, int height) {
 		super(x, y, width, height);
@@ -30,11 +31,15 @@ public class PlayerModel extends AbstractThingModel implements ThingModelInterfa
 		// lol
 	}
 	
-	public void update(int mouseX, int mouseY, boolean rightClick) {
-		if (rightClick) {
+	public void update(int mouseX, int mouseY, boolean leftClick, ClickableThingInterface targetThing) {
+		if (leftClick) {
 			destinationX = mouseX;
 			destinationY = mouseY;
 			walking = true;
+			
+			if (targetThing != null) {
+				this.targetThing = targetThing;
+			}
 		}
 		
 		if (walking) {
@@ -56,6 +61,7 @@ public class PlayerModel extends AbstractThingModel implements ThingModelInterfa
 			
 			if (x == destinationX && y == destinationY) {
 				walking = false;
+				targetThing.clicked();
 			}
 		}
 	}

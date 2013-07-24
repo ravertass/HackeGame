@@ -1,6 +1,6 @@
 package view;
 
-import model.Model;
+import model.*;
 
 import org.lwjgl.*;
 import org.lwjgl.opengl.*;
@@ -15,14 +15,15 @@ public class View {
 	private PlayerView player;
 	/**private int mouseX, mouseY;
 	private boolean leftClick, rightClick;**/
-	private ClickableThingView snorlax;
+	private StateThingView snorlax;
 
 	public View(Model model) {
 		setupDisplay();
 		setupOpenGL();
 		background = ImageLoader.loadTexture("bg_chalmers");
 		cursor = new CursorV(50, 50, 32, 32, model.cursor); //50, 50 is starting point for mouse TODO
-		snorlax = new ClickableThingView(128, 128, 64, 64, "snorlax_0", model.thingsInRoom.get(0)); //siffrorna här borde tas
+		snorlax = new StateThingView(128, 128, 64, 64, "snorlax_0", "snorlax_1", 
+				(StateThingModel) model.thingsInRoom.get(0)); //siffrorna här borde tas
 															// från snorlax-modellen på något vänster
 		player = new PlayerView(256, 96, 32, 64, "guybrush", model.player);
 	}
