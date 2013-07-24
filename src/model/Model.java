@@ -15,17 +15,14 @@ public class Model {
 	public CursorM cursor;
 	public ArrayList<ClickableThingInterface> thingsInRoom;
 	public PlayerModel player;
+	public InventoryModel inventory; //Borde kanske inte vara publik?
 	private int mouseX, mouseY;
 	private boolean leftClick, rightClick;
 	private Timer timer;
 	
 	public Model() {
-<<<<<<< HEAD
 		thingsInRoom = new ArrayList<ClickableThingInterface>();
-=======
 		timer = new Timer();
-		thingsInRoom = new ArrayList<ClickableThingModel>();
->>>>>>> 17e2bbc52a5decc08b8ee9e49dd12082094d66e9
 		cursor = new CursorM();
 		mouseX = 50;
 		mouseY = 50;
@@ -34,6 +31,7 @@ public class Model {
 		StateThingModel snorlax = new StateThingModel(128, 128, 64, 64);
 		player = new PlayerModel(256, 96, mouseX, mouseX);
 		thingsInRoom.add(snorlax);
+		inventory = new InventoryModel();
 	}
 	
 	/**
@@ -54,18 +52,10 @@ public class Model {
 				}
 			}
 		}
-<<<<<<< HEAD
 		
-		player.update(mouseX, mouseY, leftClick, targetThing);
-		
-=======
 		int delta = timer.getDelta();
-		player.update(mouseX, mouseY, rightClick, delta);
-		/**if leftClick:
-			for grejer in arraylist:
-				if man har klickat p� grejen:
-					grej.clicked();**/
->>>>>>> 17e2bbc52a5decc08b8ee9e49dd12082094d66e9
+		player.update(mouseX, mouseY, leftClick, delta, targetThing);
+		
 		// reset mouse clicks
 		leftClick = false;
 		rightClick = false;

@@ -14,6 +14,7 @@ public class PlayerModel extends AbstractThingModel implements ThingModelInterfa
 		destinationX = 0;
 		destinationY = 0;
 		walking = false;
+		targetThing = null;
 	}
 
 	@Override
@@ -21,20 +22,13 @@ public class PlayerModel extends AbstractThingModel implements ThingModelInterfa
 		// lol
 	}
 	
-<<<<<<< HEAD
-	public void update(int mouseX, int mouseY, boolean leftClick, ClickableThingInterface targetThing) {
+	public void update(int mouseX, int mouseY, boolean leftClick, int delta, ClickableThingInterface targetThing) {
 		if (leftClick) {
-=======
-	public void update(int mouseX, int mouseY, boolean rightClick, int delta) {
-		if (rightClick) {
->>>>>>> 17e2bbc52a5decc08b8ee9e49dd12082094d66e9
 			destinationX = mouseX;
 			destinationY = mouseY;
 			walking = true;
 			
-			if (targetThing != null) {
-				this.targetThing = targetThing;
-			}
+			this.targetThing = targetThing;
 		}
 		
 		if (walking) {
@@ -54,16 +48,15 @@ public class PlayerModel extends AbstractThingModel implements ThingModelInterfa
 			x += dX * delta;
 			y += dY * delta;
 			
-			System.out.println("x: " + dX * delta);
-			System.out.println("y: " + dY * delta);
-			
 			// Han hamnar aldrig exakt där man vill... men det fungerar någorlunda bra
 			// Så som det är nu så är det fel: om frameraten skulle vara högre så skulle
 			// han hamna på fel ställe.
 			if ((standX < destinationX + 1 && standX > destinationX - 1) && 
 					(standY < destinationY + 1 && standY > destinationY - 1)) {
 				walking = false;
-				targetThing.clicked();
+				if (this.targetThing != null) {
+					this.targetThing.clicked();	
+				}
 			}
 		}
 	}

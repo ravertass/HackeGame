@@ -13,9 +13,9 @@ public class PickableThingModel extends AbstractThingModel implements ClickableT
 
 	@Override
 	public void clicked() {
-		// Gå dit
-		// Om kom hela vägen fram, titta på saken
-		// Om bytte kurs, titta inte på saken
+		// Lägga till saken i inventory
+		InventoryThingModel thing = new InventoryThingModel(this);
+		// inventory.add(thing);
 		// Ta bort saken
 	}
 }
