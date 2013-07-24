@@ -9,7 +9,7 @@ import model.Model;
 
 /**
  * 
- * @author Fabian Sörensson & Anton Bergman
+ * @author Fabian Sï¿½rensson & Anton Bergman
  *
  * This is the controller class.
  * The code follows the Model-View-Controller design pattern.
@@ -68,8 +68,8 @@ public class Controller {
 		// This could very well turn out to be unnecessary.
 		// We are right now confused about if the view or the model should take
 		// the input information...
-		view.setMouseX(Mouse.getX());
-		view.setMouseY(Mouse.getY());
+		//view.setMouseX(Mouse.getX());
+		//view.setMouseY(Mouse.getY());
 		if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE) || 
 				Display.isCloseRequested()) {
 			isRunning = false;
@@ -78,12 +78,12 @@ public class Controller {
 		if (Mouse.isButtonDown(0)) {
 			model.leftClick();
 			// This, too, could be unnecessary/wrong
-			view.leftClick();
+			//view.leftClick();
 		}
 		if (Mouse.isButtonDown(1)) {
 			model.rightClick();
 			// This, too, could be unnecessary/wrong
-			view.rightClick();
+			//view.rightClick();
 		}
 	}
 	

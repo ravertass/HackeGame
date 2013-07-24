@@ -1,0 +1,10 @@
+package model;
+
+public enum ThingState {
+	MOUSE_DEFAULT,
+	MOUSE_INTERACT,
+	MOUSE_PICKUP,
+	
+	SNORLAX_SLEEPING,
+	SNORLAX_AWAKE
+}
