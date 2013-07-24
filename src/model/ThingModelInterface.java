@@ -6,8 +6,8 @@ package model;
  * a representation in the view.
  */
 public interface ThingModelInterface {
-	public int getX();
-	public int getY();
+	public double getX();
+	public double getY();
 	public void update();
 	public ThingState getState();
 	public void changeState(ThingState state);

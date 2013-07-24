@@ -17,8 +17,10 @@ public class Model {
 	public PlayerModel player;
 	private int mouseX, mouseY;
 	private boolean leftClick, rightClick;
+	private Timer timer;
 	
 	public Model() {
+		timer = new Timer();
 		thingsInRoom = new ArrayList<ClickableThingModel>();
 		cursor = new CursorM();
 		mouseX = 50;
@@ -46,8 +48,8 @@ public class Model {
 				}
 			}
 		}
-		
-		player.update(mouseX, mouseY, rightClick);
+		int delta = timer.getDelta();
+		player.update(mouseX, mouseY, rightClick, delta);
 		/**if leftClick:
 			for grejer in arraylist:
 				if man har klickat p� grejen:

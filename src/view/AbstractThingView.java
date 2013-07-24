@@ -8,11 +8,13 @@ import org.newdawn.slick.opengl.Texture;
 
 public abstract class AbstractThingView implements ThingViewInterface {
 	
-	protected int x, y, width, height;
+	protected double x, y;
+	protected int width, height;
 	protected Texture texture;
 	protected AbstractThingModel model;
 	
-	public AbstractThingView(int x, int y, int width, int height, String imageName, AbstractThingModel model) {
+	public AbstractThingView(double x, double y, int width, int height, String imageName, 
+			AbstractThingModel model) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -21,19 +23,19 @@ public abstract class AbstractThingView implements ThingViewInterface {
 		this.model = model;
 	}
 	
-	public int getX() {
+	public double getX() {
 		return x;
 	}
 
-	public void setX(int x) {
+	public void setX(double x) {
 		this.x = x;
 	}
 
-	public int getY() {
+	public double getY() {
 		return y;
 	}
 
-	public void setY(int y) {
+	public void setY(double y) {
 		this.y = y;
 	}
 	
@@ -45,13 +47,13 @@ public abstract class AbstractThingView implements ThingViewInterface {
 		texture.bind();
 		glBegin(GL_QUADS);
 			glTexCoord2f(0, 0);
-			glVertex2i(x, y);
+			glVertex2d(x, y);
 			glTexCoord2f(1, 0);
-			glVertex2i(x + width, y);
+			glVertex2d(x + width, y);
 			glTexCoord2f(1, 1);
-			glVertex2i(x + width, y - height);
+			glVertex2d(x + width, y - height);
 			glTexCoord2f(0, 1);
-			glVertex2i(x, y - height);
+			glVertex2d(x, y - height);
 		glEnd();
 	}
 }

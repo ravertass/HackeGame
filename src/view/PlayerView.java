@@ -10,8 +10,8 @@ public class PlayerView extends AbstractThingView {
 	}
 	
 	public void draw() {
-		x = model.getX();
-		y = model.getY();
+		x = (int) model.getX();
+		y = (int) model.getY();
 		super.draw();
 	}
 }
