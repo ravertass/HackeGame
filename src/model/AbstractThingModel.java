@@ -7,21 +7,22 @@ package model;
  */
 public abstract class AbstractThingModel implements ThingModelInterface {
 
-	protected int x, y, width, height;
+	protected double x, y;
+	protected int width, height;
 	protected ThingState state;
 	
-	public AbstractThingModel(int x, int y, int width, int height) {
+	public AbstractThingModel(double x, double y, int width, int height) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
 	}
 	
-	public int getX() {
+	public double getX() {
 		return x;
 	}
 
-	public int getY() {
+	public double getY() {
 		return y;
 	}
 	

@@ -17,9 +17,15 @@ public class Model {
 	public PlayerModel player;
 	private int mouseX, mouseY;
 	private boolean leftClick, rightClick;
+	private Timer timer;
 	
 	public Model() {
+<<<<<<< HEAD
 		thingsInRoom = new ArrayList<ClickableThingInterface>();
+=======
+		timer = new Timer();
+		thingsInRoom = new ArrayList<ClickableThingModel>();
+>>>>>>> 17e2bbc52a5decc08b8ee9e49dd12082094d66e9
 		cursor = new CursorM();
 		mouseX = 50;
 		mouseY = 50;
@@ -48,9 +54,18 @@ public class Model {
 				}
 			}
 		}
+<<<<<<< HEAD
 		
 		player.update(mouseX, mouseY, leftClick, targetThing);
 		
+=======
+		int delta = timer.getDelta();
+		player.update(mouseX, mouseY, rightClick, delta);
+		/**if leftClick:
+			for grejer in arraylist:
+				if man har klickat p� grejen:
+					grej.clicked();**/
+>>>>>>> 17e2bbc52a5decc08b8ee9e49dd12082094d66e9
 		// reset mouse clicks
 		leftClick = false;
 		rightClick = false;

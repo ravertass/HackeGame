@@ -9,7 +9,7 @@ public class CursorV extends AbstractThingView {
 	
 	private CursorM model;
 	
-	public CursorV(int x, int y, int width, int height, CursorM model) {
+	public CursorV(double x, double y, int width, int height, CursorM model) {
 		super(x, y, width, height, "cursor_0", model);
 		this.model = model;
 		Mouse.setGrabbed(true);
