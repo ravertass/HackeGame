@@ -28,10 +28,12 @@ public class Model {
 		mouseY = 50;
 		leftClick = false;
 		rightClick = false;
+		inventory = new InventoryModel();
 		StateThingModel snorlax = new StateThingModel(128, 128, 64, 64);
+		PickableThingModel pokeflute = new PickableThingModel(380, 100, 32, 32);
 		player = new PlayerModel(256, 96, mouseX, mouseX);
 		thingsInRoom.add(snorlax);
-		inventory = new InventoryModel();
+		thingsInRoom.add(pokeflute);
 	}
 	
 	/**
@@ -40,8 +42,8 @@ public class Model {
 	public void update() {
 		cursor.update(mouseX, mouseY);
 		cursor.changeState(ThingState.MOUSE_DEFAULT);
-		
-		ClickableThingInterface targetThing = null;
+	
+		ClickableThingInterface targetThing = null;	
 		
 		for (ClickableThingInterface thing : thingsInRoom) {
 			if (mouseX > thing.getX() && mouseX < (thing.getX() + thing.getWidth())
@@ -54,7 +56,14 @@ public class Model {
 		}
 		
 		int delta = timer.getDelta();
-		player.update(mouseX, mouseY, leftClick, delta, targetThing);
+		Event event = player.update(mouseX, mouseY, leftClick, delta, targetThing);
+		
+		inventory.update();
+		
+		if (event != null) {
+			inventory.add(new InventoryThingModel(event.getThing()));
+			thingsInRoom.remove(event.getThing());
+		}
 		
 		// reset mouse clicks
 		leftClick = false;

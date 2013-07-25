@@ -15,10 +15,11 @@ public class StateThingModel extends AbstractThingModel implements ClickableThin
 		// Do nothing
 	}
 
-	public void clicked() {
+	public Event clicked() {
 		if (state == ThingState.FIRST_IMAGE) {
 			state = ThingState.SECOND_IMAGE;
 		}
+		return null; //TODO
 	}
 	
 	public ThingState getState() {
