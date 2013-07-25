@@ -1,5 +1,7 @@
 package view;
 
+import java.util.ArrayList;
+
 import model.*;
 
 import org.lwjgl.*;
@@ -10,22 +12,32 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class View {
 	
-	private CursorV cursor;
 	private Texture background;
-	private PlayerView player;
 	/**private int mouseX, mouseY;
 	private boolean leftClick, rightClick;**/
-	private StateThingView snorlax;
+	private ArrayList<AbstractThingView> thingsToDraw;
 
 	public View(Model model) {
 		setupDisplay();
 		setupOpenGL();
 		background = ImageLoader.loadTexture("bg_chalmers");
-		cursor = new CursorV(50, 50, 32, 32, model.cursor); //50, 50 is starting point for mouse TODO
-		snorlax = new StateThingView(128, 128, 64, 64, "snorlax_0", "snorlax_1", 
+		CursorV cursor = new CursorV(50, 50, 32, 32, model.cursor); //50, 50 is starting point for mouse TODO
+		ThingView snorlax = new ThingView(128, 128, 64, 64, "snorlax_0", "snorlax_1", 
 				(StateThingModel) model.thingsInRoom.get(0)); //siffrorna här borde tas
 															// från snorlax-modellen på något vänster
-		player = new PlayerView(256, 96, 32, 64, "guybrush", model.player);
+		ThingView pokeflute = new ThingView(380, 100, 32, 32, "pokeflute", 
+				(PickableThingModel) model.thingsInRoom.get(1));
+		PlayerView player = new PlayerView(256, 96, 32, 64, "guybrush", model.player);
+		
+		InventoryView inventory = new InventoryView(0, 480, 1200, 64, "inventory", model.inventory);
+		
+		thingsToDraw = new ArrayList<AbstractThingView>();
+		
+		thingsToDraw.add(inventory);
+		thingsToDraw.add(snorlax);
+		thingsToDraw.add(pokeflute);
+		thingsToDraw.add(player);
+		thingsToDraw.add(cursor);
 	}
 	
 	/**
@@ -36,12 +48,21 @@ public class View {
 	public void update() {
 		// clear the window
 		glClear(GL_COLOR_BUFFER_BIT);
+		
 		// draw a background
 		drawBackground();
+		
 		// draw all game objects
-		snorlax.draw();
-		player.draw();
-		cursor.draw();
+		ArrayList<AbstractThingView> iterateDraw = (ArrayList<AbstractThingView>) thingsToDraw.clone();
+		for (AbstractThingView thing : iterateDraw) {
+			thing.draw();
+			// check if a thing should be removed (for example, if it's picked up)
+			boolean removeThing = thing.shouldRemove();
+			if (removeThing) {
+				thingsToDraw.remove(thing); 
+			}
+		}
+		
 		// update and sync display
 		Display.update();
 		Display.sync(60);

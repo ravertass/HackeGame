@@ -22,7 +22,11 @@ public class PlayerModel extends AbstractThingModel implements ThingModelInterfa
 		// lol
 	}
 	
-	public void update(int mouseX, int mouseY, boolean leftClick, int delta, ClickableThingInterface targetThing) {
+	public Event update(int mouseX, int mouseY, boolean leftClick, int delta, 
+			ClickableThingInterface targetThing) {
+		
+		Event event = null;
+		
 		if (leftClick) {
 			destinationX = mouseX;
 			destinationY = mouseY;
@@ -55,9 +59,10 @@ public class PlayerModel extends AbstractThingModel implements ThingModelInterfa
 					(standY < destinationY + 1 && standY > destinationY - 1)) {
 				walking = false;
 				if (this.targetThing != null) {
-					this.targetThing.clicked();	
+					event =	this.targetThing.clicked();	
 				}
 			}
 		}
+		return event;
 	}
 }

@@ -6,5 +6,6 @@ public enum ThingState {
 	MOUSE_PICKUP,
 	
 	FIRST_IMAGE,
-	SECOND_IMAGE
+	SECOND_IMAGE,
+	PICKED
 }

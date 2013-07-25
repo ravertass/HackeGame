@@ -56,4 +56,8 @@ public abstract class AbstractThingView implements ThingViewInterface {
 			glVertex2d(x, y - height);
 		glEnd();
 	}
+
+	public boolean shouldRemove() {
+		return false;
+	}
 }
