@@ -1,7 +1,7 @@
 package model;
 
 
-public class StateThingModel extends AbstractThingModel implements ClickableThingInterface{
+public class StateThingModel extends AbstractEntityModel implements InteractableInterface{
 	
 	private ThingState state;
 	
@@ -9,12 +9,7 @@ public class StateThingModel extends AbstractThingModel implements ClickableThin
 		super(x, y, width, height);
 		state = ThingState.FIRST_IMAGE;
 	}
-
-	@Override
-	public void update() {
-		// Do nothing
-	}
-
+	
 	public Event clicked() {
 		if (state == ThingState.FIRST_IMAGE) {
 			state = ThingState.SECOND_IMAGE;

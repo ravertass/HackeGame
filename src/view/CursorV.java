@@ -1,9 +1,10 @@
 package view;
 
-import model.CursorM;
 import model.ThingState;
 
 import org.lwjgl.input.Mouse;
+
+import controller.CursorM;
 
 public class CursorV extends AbstractThingView {
 	

@@ -2,7 +2,7 @@ package model;
 
 import java.util.*;
 
-public class InventoryModel extends AbstractThingModel {
+public class InventoryModel extends AbstractEntityModel {
 	
 	public ArrayList<InventoryThingModel> inventory; //publik tills vidare...
 	private boolean changed;
@@ -35,7 +35,6 @@ public class InventoryModel extends AbstractThingModel {
 		return changed;
 	}
 	
-	@Override
 	public void update() {
 		// TODO Auto-generated method stub
 		changed = false;

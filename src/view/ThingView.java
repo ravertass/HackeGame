@@ -10,7 +10,7 @@ import model.*;
 
 public class ThingView extends AbstractThingView {
 	
-	private AbstractThingModel model;
+	private AbstractEntityModel model;
 	private String firstImage, secondImage;
 	private boolean remove;
 	

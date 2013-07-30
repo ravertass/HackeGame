@@ -1,17 +1,12 @@
 package model;
 
-public class PickableThingModel extends AbstractThingModel implements ClickableThingInterface {
+public class PickableThingModel extends AbstractEntityModel implements InteractableInterface {
 	
 	private boolean exists;
 	
 	public PickableThingModel(int x, int y, int width, int height) {
 		super(x, y, width, height);
 		exists = true;
-	}
-
-	@Override
-	public void update() {
-		
 	}
 	
 	public boolean exists() {

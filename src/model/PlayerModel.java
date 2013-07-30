@@ -1,12 +1,12 @@
 package model;
 
-public class PlayerModel extends AbstractThingModel implements ThingModelInterface {
+public class PlayerModel extends AbstractEntityModel implements ThingModelInterface {
 	
 	private final double walkingSpeed = .11;
 	private double destinationX;
 	private double destinationY;
 	private boolean walking; 
-	private ClickableThingInterface targetThing;
+	private InteractableInterface targetThing;
 	
 	public PlayerModel(double x, double y, int width, int height) {
 		super(x, y, width, height);
@@ -16,14 +16,9 @@ public class PlayerModel extends AbstractThingModel implements ThingModelInterfa
 		walking = false;
 		targetThing = null;
 	}
-
-	@Override
-	public void update() {
-		// lol
-	}
 	
 	public Event update(int mouseX, int mouseY, boolean leftClick, int delta, 
-			ClickableThingInterface targetThing) {
+			InteractableInterface targetThing) {
 		
 		Event event = null;
 		

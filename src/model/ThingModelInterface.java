@@ -10,7 +10,6 @@ public interface ThingModelInterface {
 	public int getWidth();
 	public double getX();
 	public double getY();
-	public void update();
 	public ThingState getState();
 	public void changeState(ThingState state);
 }

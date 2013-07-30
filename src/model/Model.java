@@ -2,6 +2,8 @@ package model;
 
 import java.util.ArrayList;
 
+import controller.CursorM;
+
 /**
  * @author Fabian Sörensson & Anton Bergman
  *
@@ -12,85 +14,105 @@ import java.util.ArrayList;
  */
 public class Model {
 
-	public CursorM cursor;
-	public ArrayList<ClickableThingInterface> thingsInRoom;
 	public PlayerModel player;
 	public InventoryModel inventory; //Borde kanske inte vara publik?
-	private int mouseX, mouseY;
-	private boolean leftClick, rightClick;
 	private Timer timer;
+	private Room activeRoom;
+	private boolean roomChanged; // Flag that checks if the room is changed (for the v&c)
+	private InteractableInterface clickedInteractable;
+	
+	private boolean playerStartWalking;
+	private int playerDestinationX;
+	private int playerDestinationY;
 	
 	public Model() {
-		thingsInRoom = new ArrayList<ClickableThingInterface>();
+		//Gammalt
 		timer = new Timer();
-		cursor = new CursorM();
-		mouseX = 50;
-		mouseY = 50;
-		leftClick = false;
-		rightClick = false;
 		inventory = new InventoryModel();
-		StateThingModel snorlax = new StateThingModel(128, 128, 64, 64);
-		PickableThingModel pokeflute = new PickableThingModel(380, 100, 32, 32);
-		player = new PlayerModel(256, 96, mouseX, mouseX);
-		thingsInRoom.add(snorlax);
-		thingsInRoom.add(pokeflute);
+		
+		playerStartWalking = false;
+	}
+	
+	/**
+	 * @return the flag to check if a new room has been instantiated, used by the v&c
+	 */
+	public boolean hasRoomChanged() {
+		return roomChanged;
 	}
 	
 	/**
 	 * This method will be run for every iteration of the main game loop.
 	 */
 	public void update() {
-		cursor.update(mouseX, mouseY);
-		cursor.changeState(ThingState.MOUSE_DEFAULT);
-	
-		ClickableThingInterface targetThing = null;	
+		// Om vi skapas flera flaggor av denna sort är det ju gött att ha en metod återställer alla flaggor
+		roomChanged = false; // Resets the roomChanged flag
+		clickedInteractable = null; // Reset the clicked interactable
 		
-		for (ClickableThingInterface thing : thingsInRoom) {
-			if (mouseX > thing.getX() && mouseX < (thing.getX() + thing.getWidth())
-					&& mouseY < thing.getY() && mouseY > (thing.getY() - thing.getHeight())) {
-				cursor.changeState(ThingState.MOUSE_INTERACT);
-				if (leftClick) {
-					targetThing = thing;
-				}
-			}
+		// Tillfällig kod för att initiera testrummet och sätta roomChanged-flaggan till true första gången
+		// Det här kommer råförsvinna när vi börjar med XML
+		if (activeRoom == null) {
+			// Tillfälligt de interactables som finns i testrummet
+			ArrayList<InteractableInterface> interactablesInRoom;
+			StateThingModel snorlax = new StateThingModel(128, 128, 64, 64);
+			PickableThingModel pokeflute = new PickableThingModel(380, 100, 32, 32);
+			
+			// Initiera testrummet, sätt till aktivt rum
+			// Rum kommer att genereras av en XML-generator sedan, istället för att definieras 
+			// på det här viset direkt i koden
+			activeRoom = new Room(interactablesInRoom, "bg_chalmers");
+			player = new PlayerModel(256, 96, mouseX, mouseX);
+			
+			roomChanged = true;
 		}
 		
+		//Tidsgrejerna är frågan, behövs de?
 		int delta = timer.getDelta();
+		
+		// Gamla grejer
+		// (jättefult att player.update() skulle returnera ett event)
+		// Det nya som gäller: Spelaren ska endast gå om playerStartWalking är sant
 		Event event = player.update(mouseX, mouseY, leftClick, delta, targetThing);
 		
+		// Gamla grejer
 		inventory.update();
 		
+		// Gamla grejer
+		// Det här känns som någon ful, tillfällig kod
 		if (event != null) {
 			inventory.add(new InventoryThingModel(event.getThing()));
 			thingsInRoom.remove(event.getThing());
 		}
 		
-		// reset mouse clicks
-		leftClick = false;
-		rightClick = false;
+		// Om vi skapas flera flaggor av denna sort är det ju gött att ha en metod återställer alla flaggor
+		playerStartWalking = false; // Reset the flag that tells if the player should start walking
 	}
 
-	public void setMouseX(int x) {
-		mouseX = x;
-	}
-
-	public void setMouseY(int y) {
-		mouseY = y;
+	// So the v&c can get access to the active room
+	public Room getActiveRoom() {
+		return activeRoom;
 	}
 	
 	/**
-	 * This method will be run if the left mouse button is clicked, to let
-	 * the model know that it's so.
+	 * @param clickedInteractable
+	 * The controller uses this method to set which interactable is clicked
 	 */
-	public void leftClick() {
-		leftClick = true;
+	public void setClickedInteractable(InteractableInterface clickedInteractable) {
+		this.clickedInteractable = clickedInteractable;
 	}
 
 	/**
-	 * This method will be run if the right mouse button is clicked, to let
-	 * the model know that it's so.
+	 * @param mouseX
+	 * @param mouseY
+	 * This method is used by the controller to tell the model that the mouse has been clicked
+	 * and the player should probably start walking.
 	 */
-	public void rightClick() {
-		rightClick = true;
+	public void setPlayerCoordinates(int x, int y) {
+		// I denna metod kommer vi antagligen så småningom ha logik som kollar om spelaren verkligen ska gå till
+		// ett specifikt ställe (eller så kommer det finnas i update(), vi får la se)
+		
+		// Set a flag that tells us that the mouse has been clicked and the player should start walking
+		playerStartWalking = true;
+		playerDestinationX = x;
+		playerDestinationY = y;
 	}
 }

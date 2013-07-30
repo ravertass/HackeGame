@@ -2,7 +2,7 @@ package view;
 
 import static org.lwjgl.opengl.GL11.*;
 
-import model.AbstractThingModel;
+import model.AbstractEntityModel;
 
 import org.newdawn.slick.opengl.Texture;
 
@@ -11,10 +11,10 @@ public abstract class AbstractThingView implements ThingViewInterface {
 	protected double x, y;
 	protected int width, height;
 	protected Texture texture;
-	protected AbstractThingModel model;
+	protected AbstractEntityModel model;
 	
 	public AbstractThingView(double x, double y, int width, int height, String imageName, 
-			AbstractThingModel model) {
+			AbstractEntityModel model) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
