@@ -43,4 +43,7 @@ public class Room {
 		return (ArrayList<InteractableInterface>) interactables.clone();
 	}
 	
+	public String getBackgroundImageName() {
+		return backgroundImageName;
+	}
 }

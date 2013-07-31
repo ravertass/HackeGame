@@ -1,6 +1,7 @@
 package view;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import model.*;
 
@@ -16,16 +17,21 @@ public class View {
 	/**private int mouseX, mouseY;
 	private boolean leftClick, rightClick;**/
 	private ArrayList<AbstractThingView> thingsToDraw;
+	private LinkedList<AbstractThingView> interactablesToDraw;
+	private Model model;
 
 	public View(Model model) {
+		this.model = model;
+		
+		interactablesToDraw = new LinkedList<AbstractThingView>();
+		
 		setupDisplay();
 		setupOpenGL();
-		background = ImageLoader.loadTexture("bg_chalmers");
 		CursorV cursor = new CursorV(50, 50, 32, 32, model.cursor); //50, 50 is starting point for mouse TODO
-		ThingView snorlax = new ThingView(128, 128, 64, 64, "snorlax_0", "snorlax_1", 
+		EntityView snorlax = new EntityView(128, 128, 64, 64, "snorlax_0", "snorlax_1", 
 				(StateThingModel) model.thingsInRoom.get(0)); //siffrorna här borde tas
 															// från snorlax-modellen på något vänster
-		ThingView pokeflute = new ThingView(380, 100, 32, 32, "pokeflute", 
+		EntityView pokeflute = new EntityView(380, 100, 32, 32, "pokeflute", 
 				(PickableThingModel) model.thingsInRoom.get(1));
 		PlayerView player = new PlayerView(256, 96, 32, 64, "guybrush", model.player);
 		
@@ -46,6 +52,18 @@ public class View {
 	 * game window.
 	 */
 	public void update() {
+		// Check if the player has entered a new room
+		if (model.hasRoomChanged()) {
+			// Fetch the new active room
+			Room activeRoom = model.getActiveRoom();
+			// Fetch and load the new background image
+			background = ImageLoader.loadTexture(activeRoom.getBackgroundImageName());
+			// Lägg in alla ny grejer som ska ritas upp va
+			for (InteractableInterface interactableModel : activeRoom.getInteractables()) {
+				interactablesToDraw.add(new EntityView(interactableModel));
+			}
+		}
+		
 		// clear the window
 		glClear(GL_COLOR_BUFFER_BIT);
 		

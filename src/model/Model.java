@@ -30,6 +30,7 @@ public class Model {
 		timer = new Timer();
 		inventory = new InventoryModel();
 		
+		clickedInteractable = null;
 		playerStartWalking = false;
 	}
 	
@@ -46,21 +47,22 @@ public class Model {
 	public void update() {
 		// Om vi skapas flera flaggor av denna sort är det ju gött att ha en metod återställer alla flaggor
 		roomChanged = false; // Resets the roomChanged flag
-		clickedInteractable = null; // Reset the clicked interactable
 		
 		// Tillfällig kod för att initiera testrummet och sätta roomChanged-flaggan till true första gången
 		// Det här kommer råförsvinna när vi börjar med XML
 		if (activeRoom == null) {
 			// Tillfälligt de interactables som finns i testrummet
-			ArrayList<InteractableInterface> interactablesInRoom;
+			ArrayList<InteractableInterface> interactablesInRoom = new ArrayList<InteractableInterface>();
 			StateThingModel snorlax = new StateThingModel(128, 128, 64, 64);
 			PickableThingModel pokeflute = new PickableThingModel(380, 100, 32, 32);
+			interactablesInRoom.add(snorlax);
+			interactablesInRoom.add(pokeflute);
 			
 			// Initiera testrummet, sätt till aktivt rum
 			// Rum kommer att genereras av en XML-generator sedan, istället för att definieras 
 			// på det här viset direkt i koden
 			activeRoom = new Room(interactablesInRoom, "bg_chalmers");
-			player = new PlayerModel(256, 96, mouseX, mouseX);
+			player = new PlayerModel(256, 96, 32, 64);
 			
 			roomChanged = true;
 		}
@@ -68,23 +70,53 @@ public class Model {
 		//Tidsgrejerna är frågan, behövs de?
 		int delta = timer.getDelta();
 		
-		// Gamla grejer
-		// (jättefult att player.update() skulle returnera ett event)
-		// Det nya som gäller: Spelaren ska endast gå om playerStartWalking är sant
-		Event event = player.update(mouseX, mouseY, leftClick, delta, targetThing);
+		// Handle all the player's walking logic
+		playerWalking(delta);
 		
 		// Gamla grejer
-		inventory.update();
+		//inventory.update();
 		
 		// Gamla grejer
 		// Det här känns som någon ful, tillfällig kod
-		if (event != null) {
+		/**if (event != null) {
 			inventory.add(new InventoryThingModel(event.getThing()));
 			thingsInRoom.remove(event.getThing());
-		}
+		}**/
 		
 		// Om vi skapas flera flaggor av denna sort är det ju gött att ha en metod återställer alla flaggor
 		playerStartWalking = false; // Reset the flag that tells if the player should start walking
+		clickedInteractable = null; // Reset the clicked interactable
+	}
+
+	/**
+	 * @param delta The timer delta
+	 * 
+	 * The method that handles all the player walking logic
+	 */
+	private void playerWalking(int delta) {
+		// If the controller has told the model that the user has clicked somewhere
+		// and the model has deemed that the player should start walking there, (TODO: nu gör den alltid det)
+		// tell the player to do so
+		if (playerStartWalking) {
+			// If the user clicked a certain interactable for the player to interact with,
+			// that interactable will be set as the target here as clickedInteractable
+			// (and if the user has not, a null will be sent, which is correct)
+			player.startWalking(playerDestinationX, playerDestinationY, clickedInteractable);
+			
+			// TODO: När det väl finns olika sorters handlingar (hacka, häfva, använda inventariegrejer osv) så
+			// måste de skickas med här
+		}
+		
+		// If the player should be walking, let him walk
+		if (player.isWalking()) {
+			player.walk(delta); //högst osäkert om vi verkligen ska köra med den här deltagrejen
+			
+			// If the player was walking towards an interactable and the target is reached
+			if (player.hasReachedTarget()) {
+				// Fetch the event from the interactable
+				Event event = player.getEvent();
+			}
+		}
 	}
 
 	// So the v&c can get access to the active room
