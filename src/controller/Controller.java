@@ -44,6 +44,14 @@ public class Controller {
 	}
 
 	/**
+	 * @return the cursor
+	 * This method exists so the view can get access to the cursor
+	 */
+	public CursorM getCursor() {
+		return cursor;
+	}
+	
+	/**
 	 * This method handles all the user input
 	 * For now, we're not quite sure of how the input will be forwarded to
 	 * view/model
@@ -108,7 +116,7 @@ public class Controller {
 		for (InteractableInterface interactable : interactablesInRoom) {
 			if (mouseX > interactable.getX() && mouseX < (interactable.getX() + interactable.getWidth())
 					&& mouseY < interactable.getY() && mouseY > (interactable.getY() - interactable.getHeight())) {
-				cursor.changeState(ThingState.MOUSE_INTERACT);
+				cursor.changeState(ThingState.CURSOR_INTERACT);
 				if (leftClick) {
 					// Tell the model which interactable is clicked
 					// (this will be reset for every iteration of the main loop)

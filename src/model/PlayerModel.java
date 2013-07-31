@@ -1,5 +1,7 @@
 package model;
 
+import java.util.HashMap;
+
 public class PlayerModel extends AbstractEntityModel implements EntityModelInterface {
 	
 	private final double walkingSpeed = .11; // detta tal är cray på grund av delta-grejen
@@ -10,13 +12,14 @@ public class PlayerModel extends AbstractEntityModel implements EntityModelInter
 	private boolean reachedTarget;
 	private Event event;
 	
-	public PlayerModel(double x, double y, int width, int height) {
-		super(x, y, width, height);
+	public PlayerModel(double x, double y, int width, int height, HashMap<ThingState, String> stateImageMap) {
+		super(x, y, width, height, stateImageMap);
 		// olol
 		destinationX = 0;
 		destinationY = 0;
 		walking = false;
 		targetInteractable = null;
+		state = ThingState.DEFAULT;
 	}
 	
 	/**

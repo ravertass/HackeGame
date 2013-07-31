@@ -6,8 +6,11 @@ import java.util.LinkedList;
 import model.*;
 
 import org.lwjgl.*;
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.*;
 import org.newdawn.slick.opengl.Texture;
+
+import controller.CursorM;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -16,34 +19,29 @@ public class View {
 	private Texture background;
 	/**private int mouseX, mouseY;
 	private boolean leftClick, rightClick;**/
-	private ArrayList<AbstractThingView> thingsToDraw;
-	private LinkedList<AbstractThingView> interactablesToDraw;
+	private LinkedList<EntityView> fixedEntitiesToDraw;
+	private LinkedList<EntityView> interactablesToDraw;
 	private Model model;
 
-	public View(Model model) {
+	public View(Model model, CursorM cursorModel) {
+		// Göra något coolt med musen (vad?)
+		Mouse.setGrabbed(true);
+		
 		this.model = model;
 		
-		interactablesToDraw = new LinkedList<AbstractThingView>();
+		interactablesToDraw = new LinkedList<EntityView>();
 		
 		setupDisplay();
 		setupOpenGL();
-		CursorV cursor = new CursorV(50, 50, 32, 32, model.cursor); //50, 50 is starting point for mouse TODO
-		EntityView snorlax = new EntityView(128, 128, 64, 64, "snorlax_0", "snorlax_1", 
-				(StateThingModel) model.thingsInRoom.get(0)); //siffrorna här borde tas
-															// från snorlax-modellen på något vänster
-		EntityView pokeflute = new EntityView(380, 100, 32, 32, "pokeflute", 
-				(PickableThingModel) model.thingsInRoom.get(1));
-		PlayerView player = new PlayerView(256, 96, 32, 64, "guybrush", model.player);
+		EntityView cursor = new EntityView(cursorModel); //50, 50 is starting point for mouse TODO
+		EntityView player = new EntityView(model.getPlayer());
 		
-		InventoryView inventory = new InventoryView(0, 480, 1200, 64, "inventory", model.inventory);
+		//InventoryView inventory = new InventoryView(0, 480, 1200, 64, "inventory", model.inventory);
 		
-		thingsToDraw = new ArrayList<AbstractThingView>();
+		fixedEntitiesToDraw = new LinkedList<EntityView>();
 		
-		thingsToDraw.add(inventory);
-		thingsToDraw.add(snorlax);
-		thingsToDraw.add(pokeflute);
-		thingsToDraw.add(player);
-		thingsToDraw.add(cursor);
+		fixedEntitiesToDraw.add(player);
+		fixedEntitiesToDraw.add(cursor);
 	}
 	
 	/**
@@ -71,9 +69,12 @@ public class View {
 		drawBackground();
 		
 		// draw all game objects
-		ArrayList<AbstractThingView> iterateDraw = (ArrayList<AbstractThingView>) thingsToDraw.clone();
-		for (AbstractThingView thing : iterateDraw) {
-			thing.draw();
+		LinkedList<EntityView> thingsToDraw = new LinkedList<EntityView>();
+		thingsToDraw.addAll(interactablesToDraw); //borde dessa kanske vara kloner av listor?
+		thingsToDraw.addAll(fixedEntitiesToDraw); //det beror på om detta på något vis påverkar
+											      //de existerande listorna
+		for (EntityView thing : thingsToDraw) {
+			thing.update();
 			// check if a thing should be removed (for example, if it's picked up)
 			boolean removeThing = thing.shouldRemove();
 			if (removeThing) {

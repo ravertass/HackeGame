@@ -8,7 +8,8 @@ public class InventoryModel extends AbstractEntityModel {
 	private boolean changed;
 	
 	public InventoryModel() {
-		super(0, 0, 100, 100); //dessa siffror tills vidare
+		super(0, 0, 100, 100, null); //dessa siffror tills vidare 
+		// jag la till null precis nu för att få bort error
 		changed = false;
 		inventory = new ArrayList<InventoryThingModel>();
 	}

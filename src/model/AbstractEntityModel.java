@@ -12,13 +12,17 @@ public abstract class AbstractEntityModel implements EntityModelInterface {
 	protected double x, y;
 	protected int width, height;
 	protected ThingState state;
-	protected ArrayList<String> imageList;
+	protected HashMap<ThingState, String> stateImageMap;
+	private boolean exists;
 	
-	public AbstractEntityModel(double x, double y, int width, int height) {
+	public AbstractEntityModel(double x, double y, int width, int height, 
+			HashMap<ThingState, String> stateImageMap) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
+		this.stateImageMap = stateImageMap;
+		exists = true;
 	}
 	
 	public double getX() {
@@ -38,6 +42,7 @@ public abstract class AbstractEntityModel implements EntityModelInterface {
 	}
 	
 	public ThingState getState() {
+		assert (state == null) : this.toString() + ": Staten är null"; 
 		return state;
 	}
 	
@@ -45,7 +50,11 @@ public abstract class AbstractEntityModel implements EntityModelInterface {
 		this.state = state;
 	}
 	
-	public ArrayList<String> getImages(){
-		return imageList;
+	public HashMap<ThingState, String> getImages(){
+		return stateImageMap;
+	}
+
+	public boolean exists() {
+		return exists;
 	}
 }

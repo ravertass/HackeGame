@@ -17,13 +17,13 @@ public class ImageLoader {
 			texture = TextureLoader.getTexture("PNG", 
 					new FileInputStream(new File("res/" + fileName + ".png")));
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			System.out.println("Den filen finns icke");
 			e.printStackTrace();
-			// borde stänga ner displayen och stänga av programmet också
+			// borde stï¿½nga ner displayen och stï¿½nga av programmet ocksï¿½
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			// borde stänga ner displayen och stänga av programmet också
+			// borde stï¿½nga ner displayen och stï¿½nga av programmet ocksï¿½
 		}
 		
 		return texture;

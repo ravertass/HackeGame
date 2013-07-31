@@ -18,8 +18,8 @@ public class MainApplication {
 	
 	public MainApplication() {
 		model = new Model();
-		view = new View(model);
 		controller = new Controller(model); //Även view?
+		view = new View(model, controller.getCursor());
 		
 		isRunning = true;
 		

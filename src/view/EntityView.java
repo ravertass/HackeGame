@@ -1,63 +1,80 @@
 package view;
 
-import java.util.ArrayList;
-
+import static org.lwjgl.opengl.GL11.*;
+import model.AbstractEntityModel;
+import org.newdawn.slick.opengl.Texture;
 import model.*;
+import java.util.*;
 
-/**
- * @author Fabian Sörensson & Anton Bergman
- *	Class for clickable things in the game world. 
- *	Another class calls the method clicked() and something happens.
- */
-
-public class EntityView extends AbstractThingView {
+public class EntityView {
 	
-	private AbstractEntityModel model;
-	private String firstImage, secondImage;
+	protected double x, y;
+	protected int width, height;
+	protected Texture texture;
+	protected EntityModelInterface model;
+	protected HashMap<ThingState, String> stateImageMap;
 	private boolean remove;
-	private ArrayList<String> imageList;
 	
-	public EntityView(AbstractEntityModel model) {
-		super(model);
+	public EntityView(EntityModelInterface model) {
 		this.model = model;
-		this.imageList = model.getImages();
-		this.firstImage = imageList.get(0);
-		this.secondImage = imageList.get(1);
+		this.x = model.getX();
+		this.y = model.getY();
+		this.width = model.getWidth();
+		this.height = model.getHeight();
+		this.stateImageMap = model.getImages();	
 		
+		// imageList can't be empty. If so is the case, exception is thrown.
+		assert stateImageMap.isEmpty() : "Empty imageList for Model";
 	}
 	
-// Gammalt tjafs, ska ses över
-//
-//	public EntityView(int x, int y, int width, int height, String firstImage, 
-//			PickableThingModel pickableThingModel) {
-//		super(x, y, width, height, firstImage, pickableThingModel);
-//		this.firstImage = firstImage;
-//		this.secondImage = null;
-//		this.model = pickableThingModel;
-//	}
-//	
-//	public EntityView(int x, int y, int width, int height, String firstImage, 
-//			InventoryThingModel inventoryThingModel) {
-//		super(x, y, width, height, firstImage, inventoryThingModel);
-//		this.firstImage = firstImage;
-//		this.secondImage = null;
-//		this.model = inventoryThingModel;
-//	}
+	public double getX() {
+		return x;
+	}
+
+	public void setX(double x) {
+		this.x = x;
+	}
+
+	public double getY() {
+		return y;
+	}
+
+	public void setY(double y) {
+		this.y = y;
+	}
 	
-	public void draw() {
-		if (model instanceof StateThingModel) {
-			if (model.getState().equals(ThingState.FIRST_IMAGE)) {
-				super.setImage(firstImage);
-			} else if (model.getState().equals(ThingState.SECOND_IMAGE)) {
-				super.setImage(secondImage);	
-			}
-		} else if (model instanceof PickableThingModel) {
-			if (!((PickableThingModel) model).exists()) {
-				remove = true;
-			}
-		}
+	public void setImage(String imageFileName) {
+		texture = ImageLoader.loadTexture(imageFileName);
+	}
+	
+	public void update() {
+		// Set the image according to the state of the model
+		setImage(stateImageMap.get(model.getState()));
 		
-		super.draw();
+		// Fetch the coordinates from the model
+		x = model.getX();
+		y = model.getY();
+		
+		// Check if this entityview should be removed
+		if (!model.exists()) {
+			remove = true;
+		}
+
+		draw();
+	}
+
+	private void draw() {
+		texture.bind();
+		glBegin(GL_QUADS);
+			glTexCoord2f(0, 0);
+			glVertex2d(x, y);
+			glTexCoord2f(1, 0);
+			glVertex2d(x + width, y);
+			glTexCoord2f(1, 1);
+			glVertex2d(x + width, y - height);
+			glTexCoord2f(0, 1);
+			glVertex2d(x, y - height);
+		glEnd();
 	}
 	
 	public boolean shouldRemove() {

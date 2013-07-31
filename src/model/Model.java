@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import controller.CursorM;
 
@@ -28,6 +29,12 @@ public class Model {
 	public Model() {
 		//Gammalt
 		timer = new Timer();
+		
+		// Här initierar vi spelaren och dess bilder
+		HashMap<ThingState, String> playerMap = new HashMap<ThingState, String>();
+		playerMap.put(ThingState.DEFAULT, "guybrush");
+		player = new PlayerModel(256, 96, 32, 64, playerMap);
+		
 		inventory = new InventoryModel();
 		
 		clickedInteractable = null;
@@ -53,16 +60,23 @@ public class Model {
 		if (activeRoom == null) {
 			// Tillfälligt de interactables som finns i testrummet
 			ArrayList<InteractableInterface> interactablesInRoom = new ArrayList<InteractableInterface>();
-			StateThingModel snorlax = new StateThingModel(128, 128, 64, 64);
-			PickableThingModel pokeflute = new PickableThingModel(380, 100, 32, 32);
+			
+			HashMap<ThingState, String> snorlaxMap = new HashMap<ThingState, String>();
+			snorlaxMap.put(ThingState.SNORLAX_SLEEPING, "snorlax_0");
+			snorlaxMap.put(ThingState.SNORLAX_AWAKE, "snorlax_1");
+			StateThingModel snorlax = new StateThingModel(128, 128, 64, 64, snorlaxMap);
+			
+			HashMap<ThingState, String> pokefluteMap = new HashMap<ThingState, String>();
+			pokefluteMap.put(ThingState.DEFAULT, "pokeflute");
+			PickableThingModel pokeflute = new PickableThingModel(380, 100, 32, 32, pokefluteMap);
 			interactablesInRoom.add(snorlax);
 			interactablesInRoom.add(pokeflute);
+			pokeflute.changeState(ThingState.DEFAULT);
 			
 			// Initiera testrummet, sätt till aktivt rum
 			// Rum kommer att genereras av en XML-generator sedan, istället för att definieras 
 			// på det här viset direkt i koden
 			activeRoom = new Room(interactablesInRoom, "bg_chalmers");
-			player = new PlayerModel(256, 96, 32, 64);
 			
 			roomChanged = true;
 		}
@@ -146,5 +160,10 @@ public class Model {
 		playerStartWalking = true;
 		playerDestinationX = x;
 		playerDestinationY = y;
+	}
+	
+	// Playern kanske skapas i och med varje rum istället? Vem vet!?
+	public PlayerModel getPlayer() {
+		return player;
 	}
 }

@@ -7,7 +7,7 @@ import model.InventoryModel;
 import model.InventoryThingModel;
 import model.StateThingModel;
 
-public class InventoryView extends AbstractThingView {
+public class InventoryView extends EntityView {
 
 	private ArrayList<EntityView> thingsInInventory;
 	private InventoryModel model;
@@ -20,17 +20,17 @@ public class InventoryView extends AbstractThingView {
 		// sätt sakernas x- och y-värden relativa till InventoryViewn
 	}
 	
-	public void draw() {
+	public void update() {
 		// Kolla: Finns det något nytt i inventory-modellen?
 		if (model.changed()) {
 			InventoryThingModel thingModel = model.getLast();
-			EntityView pokeflute = new EntityView(16, 464, 32, 32, "pokeflute", thingModel);
-			thingsInInventory.add(pokeflute);
+			//EntityView pokeflute = new EntityView(16, 464, 32, 32, "pokeflute", thingModel);
+			//thingsInInventory.add(pokeflute);
 		}
 		// I så fall: Lägg till detta i inventory-viewn
-		super.draw();
+		super.update();
 		for (EntityView thing : thingsInInventory) {
-			thing.draw();
+			thing.update();
 		}
 	}
 
