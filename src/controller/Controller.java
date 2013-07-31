@@ -41,6 +41,7 @@ public class Controller {
 		this.model = model;
 		gameIsRunning = true;
 		cursor = new CursorM();
+		interactablesInRoom = new ArrayList<InteractableInterface>();
 	}
 
 	/**
@@ -49,6 +50,42 @@ public class Controller {
 	 */
 	public CursorM getCursor() {
 		return cursor;
+	}
+	
+
+	// Used by the main app to see if the user tries to exit the game
+	public boolean continueRunning() {
+		return gameIsRunning;
+	}
+
+	// Run for every iteration of the main loop in the main app
+	public void update() {
+		// Reset the mouse button click-flags
+		cursor.changeState(ThingState.CURSOR_DEFAULT);
+		leftClick = false;
+		rightClick = false;
+		
+		input();
+		
+		// Check if the player has entered a new room
+		if (model.hasRoomChanged()) {
+			// Get all the new interactables
+			System.out.println("Bajsmamma");
+			interactablesInRoom = model.getActiveRoom().getInteractables();
+		}
+
+		if (leftClick) {
+			// Tell the model that the user has clicked on certain coordinates
+			// and that the player should probably go there
+			model.setPlayerCoordinates(mouseX, mouseY);
+		}
+		
+		// Check through the list of active interactables if the player has clicked
+		// any of them: If so, tell the model which interactable is clicked
+		checkInteractables();
+		
+		// Tell the cursor representation the new mouse coordinates
+		cursor.update(mouseX, mouseY);
 	}
 	
 	/**
@@ -73,39 +110,7 @@ public class Controller {
 			rightClick = true;
 		}
 	}
-
-	// Used by the main app to see if the user tries to exit the game
-	public boolean continueRunning() {
-		return gameIsRunning;
-	}
-
-	// Run for every iteration of the main loop in the main app
-	public void update() {
-		// Reset the mouse button click-flags
-		leftClick = false;
-		rightClick = false;
-		
-		input();
-		
-		// Check if the player has entered a new room
-		if (model.hasRoomChanged()) {
-			// Get all the new interactables
-			interactablesInRoom = model.getActiveRoom().getInteractables();
-		}
-
-		if (leftClick) {
-			// Tell the model that the user has clicked on certain coordinates
-			// and that the player should probably go there
-			model.setPlayerCoordinates(mouseX, mouseY);
-			
-			// Check through the list of active interactables if the player has clicked
-			// any of them: If so, tell the model which interactable is clicked
-			checkInteractables();
-		}
-		
-		// Tell the cursor representation the new mouse coordinates
-		cursor.update(mouseX, mouseY);
-	}
+	
 
 	/**
 	 * This method is used to iterate through the list of interactables in the active room
