@@ -13,12 +13,11 @@ public class StateThingView extends AbstractThingView {
 	private StateThingModel model;
 	private String firstImage, secondImage;
 	
-	public StateThingView(int x, int y, int width, int height, String firstImage, 
-			String secondImage, StateThingModel stateThingModel) {
-		super(x, y, width, height, firstImage, stateThingModel);
-		this.firstImage = firstImage;
-		this.secondImage = secondImage;
+	public StateThingView(StateThingModel stateThingModel) {
+		super(stateThingModel);
 		this.model = stateThingModel;
+		this.firstImage = imageList.get(0);
+		this.secondImage = imageList.get(1);
 	}
 	
 	public void draw() {

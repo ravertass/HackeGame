@@ -1,5 +1,6 @@
 package view;
 
+import model.*;
 import model.ThingState;
 
 import org.lwjgl.input.Mouse;
@@ -10,8 +11,8 @@ public class CursorV extends AbstractThingView {
 	
 	private CursorM model;
 	
-	public CursorV(double x, double y, int width, int height, CursorM model) {
-		super(x, y, width, height, "cursor_0", model);
+	public CursorV(CursorM model) {
+		super(model);
 		this.model = model;
 		Mouse.setGrabbed(true);
 	}
@@ -25,9 +26,5 @@ public class CursorV extends AbstractThingView {
 		x = model.getX();
 		y = model.getY();
 		super.draw();
-	}
-	
-	public CursorV(CursorM model) {
-		this(50, 50, 32, 32, model);
 	}
 }

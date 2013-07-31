@@ -2,6 +2,7 @@ package view;
 
 import java.util.ArrayList;
 
+import model.AbstractEntityModel;
 import model.InventoryModel;
 import model.InventoryThingModel;
 import model.StateThingModel;
@@ -11,9 +12,8 @@ public class InventoryView extends AbstractThingView {
 	private ArrayList<EntityView> thingsInInventory;
 	private InventoryModel model;
 	
-	public InventoryView(double x, double y, int width, int height,
-			String imageName, InventoryModel model) {
-		super(x, y, width, height, imageName, model);
+	public InventoryView(InventoryModel model) { 
+		super(model);
 		this.model = model;
 		thingsInInventory = new ArrayList<EntityView>();
 		// lägg till alla saker i listan

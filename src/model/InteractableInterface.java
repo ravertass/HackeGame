@@ -1,5 +1,7 @@
 package model;
 
-public interface InteractableInterface extends ThingModelInterface {
+import java.util.ArrayList;
+
+public interface InteractableInterface extends EntityModelInterface {
 	public Event clicked();
 }

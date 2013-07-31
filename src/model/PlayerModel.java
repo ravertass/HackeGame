@@ -1,6 +1,6 @@
 package model;
 
-public class PlayerModel extends AbstractEntityModel implements ThingModelInterface {
+public class PlayerModel extends AbstractEntityModel implements EntityModelInterface {
 	
 	private final double walkingSpeed = .11; // detta tal är cray på grund av delta-grejen
 	private double destinationX;
