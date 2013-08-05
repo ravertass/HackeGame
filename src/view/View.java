@@ -69,16 +69,16 @@ public class View {
 		drawBackground();
 		
 		// draw all game objects
-		LinkedList<EntityView> thingsToDraw = new LinkedList<EntityView>();
-		thingsToDraw.addAll(interactablesToDraw); //borde dessa kanske vara kloner av listor?
-		thingsToDraw.addAll(fixedEntitiesToDraw); //det beror på om detta på något vis påverkar
+		LinkedList<EntityView> entitiesToDraw = new LinkedList<EntityView>();
+		entitiesToDraw.addAll(interactablesToDraw); //borde dessa kanske vara kloner av listor?
+		entitiesToDraw.addAll(fixedEntitiesToDraw); //det beror på om detta på något vis påverkar
 											      //de existerande listorna
-		for (EntityView thing : thingsToDraw) {
+		for (EntityView thing : entitiesToDraw) {
 			thing.update();
 			// check if a thing should be removed (for example, if it's picked up)
 			boolean removeThing = thing.shouldRemove();
 			if (removeThing) {
-				thingsToDraw.remove(thing); 
+				interactablesToDraw.remove(thing); 
 			}
 		}
 		
